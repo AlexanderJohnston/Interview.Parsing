@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
 
@@ -25,13 +26,23 @@ namespace Interview.Parsing
                 var FrequencyTable = new Dictionary<string, int>();
                 foreach (var nGram in creator.ParseTokens(input, NGramSize))
                 {
-                    if (FrequencyTable.ContainsKey(nGram.ToLower()))
+                    // Protect against potentially copying massive sized bigram strings into the dictionary as keys.
+                    string key;
+                    if (nGram.Length > 1000)
                     {
-                        FrequencyTable[nGram.ToLower()] += 1;
+                        key = nGram.Substring(0, 1000).ToLower();
                     }
                     else
                     {
-                        FrequencyTable.Add(nGram.ToLower(), 1);
+                        key = nGram.ToLower();
+                    }
+                    if (FrequencyTable.ContainsKey(key))
+                    {
+                        FrequencyTable[key] += 1;
+                    }
+                    else
+                    {
+                        FrequencyTable.Add(key, 1);
                     }
                 }
                 DisplayCurrentAnalysis(FrequencyTable, input);
