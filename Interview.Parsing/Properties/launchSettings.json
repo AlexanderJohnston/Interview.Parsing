@@ -2,7 +2,7 @@
   "profiles": {
     "Interview.Parsing": {
       "commandName": "Project",
-      "commandLineArgs": "-multi \"Hello my name is, what? My name is, huh? My name is, Slim Shady!\" \"She sells sea shells down by the sea where she sells sea shells down by down by down by me.\""
+      "commandLineArgs": "C:\\Users\\alexa\\source\\repos\\Interview.Parsing\\Samples\\please-stand-up.txt"
     }
   }
 }

@@ -13,10 +13,11 @@ namespace Interview.Parsing
             var creator = new StringBuilder();
             // Span<T> cannot be boxed from the Stack so we need Memory<T> in order to yield Enumerables from the Heap.
             var memory = phrase.AsMemory();
+            // Tracks the word length for the sake of clearing stringbuilder memory based on index and length
             var nGramLength = 0;
             var tokensFound = 0;
 
-            // This saves us from a lot of boundary checks for valid symbols by doing it outside the loop
+            // This saves us from a lot of boundary checks for the first character by doing it outside the loop
             if (char.IsLetterOrDigit(memory.Span[0]))
             {
                 creator.Append(memory.Span[0]);
@@ -58,6 +59,11 @@ namespace Interview.Parsing
                 }
                 else
                 {
+                    if (char.IsLetterOrDigit(current))
+                    {
+                        creator.Append(current);
+                        nGramLength += 1;
+                    }
                     _GramBuffer.Enqueue(nGramLength);
                     yield return creator.ToString();
                 }
@@ -74,8 +80,9 @@ namespace Interview.Parsing
         private bool ValidTokenSymbol(char symbol, char before, char after)
         {
             return !char.IsWhiteSpace(symbol)
-              && (char.IsPunctuation(symbol) || char.IsSeparator(symbol))
-              && (char.IsLetterOrDigit(before) && char.IsLetterOrDigit(after));
+              && (char.IsPunctuation(symbol) || char.IsSeparator(symbol) || char.IsSymbol(symbol))
+              && (char.IsLetterOrDigit(before) || char.IsWhiteSpace(before)) 
+              && char.IsLetterOrDigit(after);
         }
     }
 }

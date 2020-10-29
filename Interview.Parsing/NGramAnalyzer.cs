@@ -22,18 +22,16 @@ namespace Interview.Parsing
             foreach (var input in parsed.Inputs)
             {
                 var creator = new NGramCreator();
-                var nGrams = new List<string>();
                 var FrequencyTable = new Dictionary<string, int>();
                 foreach (var nGram in creator.ParseTokens(input, NGramSize))
                 {
-                    nGrams.Add(nGram);
-                    if (FrequencyTable.ContainsKey(nGram))
+                    if (FrequencyTable.ContainsKey(nGram.ToLower()))
                     {
-                        FrequencyTable[nGram] += 1;
+                        FrequencyTable[nGram.ToLower()] += 1;
                     }
                     else
                     {
-                        FrequencyTable.Add(nGram, 1);
+                        FrequencyTable.Add(nGram.ToLower(), 1);
                     }
                 }
                 DisplayCurrentAnalysis(FrequencyTable, input);
@@ -49,7 +47,7 @@ namespace Interview.Parsing
             Console.WriteLine("BiGram Analysis For:");
             if (phrase.Length > 100)
             {
-                Console.WriteLine($"{phrase.Substring(0, 100)}...");
+                Console.WriteLine($"{phrase.Substring(0, 100)} ...[cutoff]");
             }
             else
             {
