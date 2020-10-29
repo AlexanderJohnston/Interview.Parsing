@@ -1,6 +1,6 @@
 # Bigram Frequency Analyzer.
 
-This program was built by Alexander Johnston and submitted 2020-28-10.
+This .NET Core 3.1 Console App was built by Alexander Johnston and submitted 2020-28-10.
 
 PURPOSE:
 ---
