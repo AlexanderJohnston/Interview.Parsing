@@ -33,10 +33,9 @@ namespace Interview.Parsing.Tests
         [Fact]
         public void TestOutputFile()
         {
-            var test = Assembly.GetExecutingAssembly().CodeBase;
-            var test2 = test.Substring(8, test.Length - 8);
-            var fileInfo = new FileInfo(test2);
-            var directory = fileInfo.Directory.FullName;
+            var codebase = Assembly.GetExecutingAssembly().CodeBase;
+            var trimmed = codebase.Substring(8, codebase.Length - 8);
+            var directory = new FileInfo(trimmed).Directory.FullName;
             var inputSample = $"{directory}\\Samples\\hundred-bigrams-with-symbols.txt";
             var args = new[] { inputSample, ".\\sample-output.txt" };
             var parser = new ArgsParser(args);
