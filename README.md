@@ -2,6 +2,12 @@
 
 This .NET Core 3.1 Console App was built by Alexander Johnston and submitted 2020-28-10.
 
+INTERVIEW NOTES:
+---
+I have included some sample files up to 10 million bigrams in size to test out this program in case you don't have any on hand.
+The program **should** gracefully handle large files of 100MB - 10GB or more. I did my best in the short time allotted to add graceful handling.
+I hope you try to throw everything you've got at it and see if you can break it! :)
+
 PURPOSE:
 ---
 This program takes a phrase and tokenizes it into bigrams and then creates a simple histogram to show token frequency.
