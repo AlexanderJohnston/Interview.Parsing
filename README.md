@@ -14,19 +14,22 @@ HOW TO USE:
 ---
 This program runs in three different modes, "Single", "Multi", and "File".
 
-[Single Mode]:
+\[*Single Mode*\]:
+
 `Interview.Parsing.exe "Input Phrase Input Phrase"`
 
 This mode will parse a single phrase and display the output in the console or stdout.
 
-[Multi Mode]:
+\[*Multi Mode*\]:
+
 `Interview.Parsing.exe -multi "One Bigram" "Two Bigram Two Bigram"`
 
 Multi-mode will parse as many outputs as you can fit into separate arguments and output to the console.
 
 The -multi switch is required.
 
-[File Mode]:
+\[*File Mode*\]:
+
 `Interview.Parsing.exe "input.txt"`
 
 `Interview.Parsing.exe "input.txt" "output.txt"`
