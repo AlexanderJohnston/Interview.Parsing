@@ -46,7 +46,7 @@ namespace Interview.Parsing
                 //  Trace the console out to the file.
                 Console.SetOut(sWriter);
                 var analyzer = new NGramAnalyzer(2);
-                analyzer.AnalyzeInputs(arguments);
+                analyzer.AnalyzeFile(arguments);
 
                 //  Restore the original console output.
                 Console.SetOut(consoleOutput);

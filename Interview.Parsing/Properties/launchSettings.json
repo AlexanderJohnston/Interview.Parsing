@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Interview.Parsing": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "\".\\Samples\\million-bigram.txt\" \".\\sample-million.txt\""
     }
   }
 }

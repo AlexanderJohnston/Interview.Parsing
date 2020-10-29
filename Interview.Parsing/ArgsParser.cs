@@ -35,7 +35,6 @@ namespace Interview.Parsing
             {
                 InputFileName = FilesPassedAsArgs[0];
                 OutputFileName = args.Length > 1 ? args[1] : string.Empty;
-                ReadInputFile();
             }
             // If there are no files passed in then we must assume the args are the input
             else
@@ -49,13 +48,6 @@ namespace Interview.Parsing
                     ReadAsSingularInput(args);
                 }
             }
-        }
-
-        private void ReadInputFile()
-        {
-            if (InputFileName == null) return;
-            var lines = File.ReadAllLines(InputFileName);
-            Inputs.AddRange(lines);
         }
 
         private void ReadAsSingularInput(string[] args)

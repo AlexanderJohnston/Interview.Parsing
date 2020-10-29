@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
@@ -15,6 +16,35 @@ namespace Interview.Parsing
         public NGramAnalyzer(int nGramSize)
         {
             NGramSize = nGramSize;
+        }
+
+        public void AnalyzeFile(ArgsParser parsed)
+        {
+            FrequencyTable = new Dictionary<string, int>();
+            var inputFile = new FileInfo(parsed.InputFileName);
+            var creator = new NGramCreator();
+            foreach (var nGram in creator.ParseTokens(inputFile, NGramSize))
+            {
+                // Protect against potentially copying massive sized bigram strings into the dictionary as keys.
+                string key;
+                if (nGram.Length > 1000)
+                {
+                    key = nGram.Substring(0, 1000).ToLower();
+                }
+                else
+                {
+                    key = nGram.ToLower();
+                }
+                if (FrequencyTable.ContainsKey(key))
+                {
+                    FrequencyTable[key] += 1;
+                }
+                else
+                {
+                    FrequencyTable.Add(key, 1);
+                }
+            }
+            DisplayCurrentAnalysis(FrequencyTable);
         }
 
         public void AnalyzeInputs(ArgsParser parsed)
@@ -49,13 +79,13 @@ namespace Interview.Parsing
             }
         }
 
-        public void DisplayCurrentAnalysis(Dictionary<string, int> frequencyTable, string phrase)
+        public void DisplayCurrentAnalysis(Dictionary<string, int> frequencyTable, string phrase = "")
         {
             if (frequencyTable == null || frequencyTable.Count == 0)
             {
                 return;
             };
-            Console.WriteLine("BiGram Analysis For:");
+            Console.WriteLine("BiGram Analysis:");
             if (phrase.Length > 100)
             {
                 Console.WriteLine($"{phrase.Substring(0, 100)} ...[cutoff]");
@@ -63,7 +93,6 @@ namespace Interview.Parsing
             }
             else
             {
-                Console.WriteLine(phrase);
                 Console.WriteLine("---");
             }
             foreach (var nGram in frequencyTable)
