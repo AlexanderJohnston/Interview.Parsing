@@ -40,6 +40,6 @@ The -multi switch is required.
 
 `Interview.Parsing.exe "input.txt" "output.txt"`
 
-The first argument should contain a valid path to your input phrases as a plaintext file. Any number of phrases can be added to the file. Phrases separated by newlines will be procesed separately.
+The first argument should contain a valid path to your input phrases as a plaintext file. Any number of phrases can be added to the file. Phrases separated by newlines will be procesed as a single phrase.
 
 The second argument specifies an output file, otherwise the program will output to the console.
