@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Interview.Parsing
 {
@@ -15,16 +17,19 @@ namespace Interview.Parsing
             {
                 DisplayHelp();
             }
-
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 FilePathSanityCheck();
             }
-
             var parsedArguments = new ArgsParser(args);
+            var analyzer = new NGramAnalyzer(2);
+            analyzer.AnalyzeInputs(parsedArguments);
 
-
+            Console.WriteLine("Exit?");
+            Console.ReadLine();
         }
+
+        
 
         /// <summary>
         /// Displays a help prompt on the console after checing if you have whitespace in any file paths not wrapped in quotes.
