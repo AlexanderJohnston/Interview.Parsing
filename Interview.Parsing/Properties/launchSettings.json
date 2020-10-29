@@ -2,7 +2,7 @@
   "profiles": {
     "Interview.Parsing": {
       "commandName": "Project",
-      "commandLineArgs": "C:\\Users\\alexa\\source\\repos\\Interview.Parsing\\Samples\\please-stand-up.txt"
+      "commandLineArgs": "\"C:\\Users\\alexa\\so urce\\repos\\Interview.Parsing\\Samples\\please-stand-up.txt\" \"C:\\program files(x86)\\hello\\output.txt\""
     }
   }
 }

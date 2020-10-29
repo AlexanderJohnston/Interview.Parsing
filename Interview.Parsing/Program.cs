@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -17,32 +18,50 @@ namespace Interview.Parsing
             {
                 DisplayHelp();
             }
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                FilePathSanityCheck();
-            }
             var parsedArguments = new ArgsParser(args);
-            var analyzer = new NGramAnalyzer(2);
-            analyzer.AnalyzeInputs(parsedArguments);
+            var outputEnabled = string.IsNullOrEmpty(parsedArguments.OutputFileName);
+            if (outputEnabled)
+                ExecuteAndLogToFile(parsedArguments);
+            else
+                ExecuteInteractively(parsedArguments);
+        }
 
+        private static void ExecuteInteractively(ArgsParser arguments)
+        {
+            var analyzer = new NGramAnalyzer(2);
+            analyzer.AnalyzeInputs(arguments);
             Console.WriteLine("Exit?");
             Console.ReadLine();
         }
 
-        
-
         /// <summary>
-        /// Displays a help prompt on the console after checing if you have whitespace in any file paths not wrapped in quotes.
-        /// 
+        ///     Outputs the <see cref="Console" /> to a file located in the <see cref="AppDomain" /> base directory.
         /// </summary>
-        private static void FilePathSanityCheck()
+        /// <param name="rover">A <see cref="LandRover" /> to be moved.</param>
+        /// <param name="movementInstructions">A list of instructions to be passed to the <see cref="LandRover" />.</param>
+        /// <param name="fileName">
+        ///     The name of the file containing output strings which report the <see cref="LandRover" /> current
+        ///     position after each instruction.
+        /// </param>
+        private static void ExecuteAndLogToFile(ArgsParser arguments)
         {
-            var windowsPathRegex = new Regex(@"^\w:\\.+?\w+\s(?:$|\w+|(?:[\w|()]+)?\\)");
-            var rawArguments = string.Join("", _args);
-            var match = windowsPathRegex.Match(rawArguments);
-            if (match.Success)
+            FileStream file;
+            if (File.Exists(arguments.OutputFileName))
+                file = new FileStream($"{arguments.OutputFileName}", FileMode.Append);
+            else
+                file = new FileStream($"{arguments.OutputFileName}", FileMode.OpenOrCreate);
+            var consoleOutput = Console.Out;
+            using (var sWriter = new StreamWriter(file))
             {
-                DisplayPathWarning();
+                //  Trace the console out to the file.
+                Console.SetOut(sWriter);
+                var analyzer = new NGramAnalyzer(2);
+                analyzer.AnalyzeInputs(arguments);
+                Console.WriteLine("Exit?");
+                Console.ReadLine();
+
+                //  Restore the original console output.
+                Console.SetOut(consoleOutput);
             }
         }
 
