@@ -33,15 +33,6 @@ namespace Interview.Parsing
             analyzer.AnalyzeInputs(arguments);
         }
 
-        /// <summary>
-        ///     Outputs the <see cref="Console" /> to a file located in the <see cref="AppDomain" /> base directory.
-        /// </summary>
-        /// <param name="rover">A <see cref="LandRover" /> to be moved.</param>
-        /// <param name="movementInstructions">A list of instructions to be passed to the <see cref="LandRover" />.</param>
-        /// <param name="fileName">
-        ///     The name of the file containing output strings which report the <see cref="LandRover" /> current
-        ///     position after each instruction.
-        /// </param>
         public static void ExecuteAndLogToFile(ArgsParser arguments)
         {
             FileStream file;
