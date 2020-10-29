@@ -34,7 +34,7 @@ namespace Interview.Parsing
             if (inputFileProvided)
             {
                 InputFileName = FilesPassedAsArgs[0];
-                OutputFileName = FilesPassedAsArgs.Count > 1 ? FilesPassedAsArgs[1] : string.Empty;
+                OutputFileName = args.Length > 1 ? args[1] : string.Empty;
                 ReadInputFile();
             }
             // If there are no files passed in then we must assume the args are the input

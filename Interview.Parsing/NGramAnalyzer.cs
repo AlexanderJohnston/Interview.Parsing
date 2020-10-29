@@ -48,10 +48,12 @@ namespace Interview.Parsing
             if (phrase.Length > 100)
             {
                 Console.WriteLine($"{phrase.Substring(0, 100)} ...[cutoff]");
+                Console.WriteLine("---");
             }
             else
             {
                 Console.WriteLine(phrase);
+                Console.WriteLine("---");
             }
             foreach (var nGram in frequencyTable)
             {
