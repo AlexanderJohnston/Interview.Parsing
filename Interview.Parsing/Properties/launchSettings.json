@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Interview.Parsing": {
+      "commandName": "Project",
+      "commandLineArgs": "-multi \"This is the bigram challenge to find the bigram in the list and this is where we count the frequency of words in the list and that's what this is.\" \"This is my house will you please get out of my house this is, this is my house, yes it is.\""
+    }
+  }
+}
